@@ -1,0 +1,30 @@
+items:
+  - name: "Forest"
+    percentage: 30.0
+    style: "fill"
+    color: "#228B22"
+  
+  - name: "Water"
+    percentage: 15.0
+    style: "fill"
+    color: "#4169E1"
+  
+  - name: "Mountain"
+    percentage: 20.0
+    style: "fill"
+    color: "#8B4513"
+  
+  - name: "Village"
+    percentage: 10.0
+    style: "dot"
+    color: "#FFD700"
+  
+  - name: "Road"
+    percentage: 5.0
+    style: "dot"
+    color: "#696969"
+  
+  - name: "Empty"
+    percentage: 20.0
+    style: "fill"
+    color: "#F5F5DC"

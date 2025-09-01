@@ -1,0 +1,41 @@
+default: "#D3D3D3"
+items:
+  - name: "Class M Star"
+    percentage: 15.0
+    style: "dot"
+    color: "#FFD700"
+  
+  - name: "Red Giant Star"
+    percentage: 1.0
+    style: "dot"
+    color: "#FF8080"
+
+  - name: "White Dwarf Star"
+    percentage: 1.0
+    style: "dot"
+    color: "#FFFFFF"
+
+  - name: "Neutron Star"
+    percentage: 1.0
+    style: "dot"
+    color: "#FFA500"
+
+  - name: "Red Dwarf Star"
+    percentage: 1.0
+    style: "dot"
+    color: "#FF0000"
+
+  - name: "Brown Dwarf Star"
+    percentage: 1.0
+    style: "dot"
+    color: "#8B4513"
+
+  - name: "Blue Supergiant Star"
+    percentage: 1.0
+    style: "dot"
+    color: "#5555FF"
+
+  - name: "Black Hole"
+    percentage: 5.0
+    style: "dot"
+    color: "#000000"

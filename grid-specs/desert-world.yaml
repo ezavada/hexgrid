@@ -1,0 +1,36 @@
+default: "#F5DEB3"
+items:
+  - name: "Sand Dunes"
+    percentage: 40.0
+    style: "fill"
+    color: "#F4A460"
+  
+  - name: "Rocky Desert"
+    percentage: 25.0
+    style: "fill"
+    color: "#A0522D"
+  
+  - name: "Oasis"
+    percentage: 10.0
+    style: "fill"
+    color: "#32CD32"
+  
+  - name: "Desert City"
+    percentage: 8.0
+    style: "dot"
+    color: "#FFD700"
+  
+  - name: "Caravan Route"
+    percentage: 7.0
+    style: "dot"
+    color: "#8B4513"
+  
+  - name: "Mirage"
+    percentage: 5.0
+    style: "dot"
+    color: "#87CEEB"
+  
+  - name: "Empty Desert"
+    percentage: 5.0
+    style: "fill"
+    color: "#F5DEB3"

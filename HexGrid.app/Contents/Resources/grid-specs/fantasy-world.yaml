@@ -1,0 +1,31 @@
+default: "#F5F5DC"
+items:
+  - name: "Forest"
+    percentage: 35.0
+    style: "fill"
+    color: "#228B22"
+  
+  - name: "Mountains"
+    percentage: 25.0
+    style: "fill"
+    color: "#8B4513"
+  
+  - name: "Plains"
+    percentage: 20.0
+    style: "fill"
+    color: "#90EE90"
+  
+  - name: "Castle"
+    percentage: 5.0
+    style: "dot"
+    color: "#FFD700"
+  
+  - name: "Village"
+    percentage: 10.0
+    style: "dot"
+    color: "#CD853F"
+  
+  - name: "Water"
+    percentage: 5.0
+    style: "fill"
+    color: "#4169E1"
