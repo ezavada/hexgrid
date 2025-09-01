@@ -85,10 +85,30 @@ func GenerateSVG(grid *HexGrid, outputPath string) error {
 			svg += fmt.Sprintf(`
     <path d="%s" fill="%s" stroke="%s" stroke-width="1"/>`, hexPath, fillColor, strokeColor)
 
+			// Add letter if available
+			if cell.ItemType != nil && cell.ItemType.Letter != "" {
+				svg += fmt.Sprintf(`
+    <text x="%.1f" y="%.1f" font-family="Arial, sans-serif, condensed" font-size="10" fill="black" text-anchor="start">%s</text>`, x, y, cell.ItemType.Letter)
+			}
+
+			size := 9
+			if cell.ItemType != nil && cell.ItemType.Size != "" {
+				switch cell.ItemType.Size {
+				case "small":
+					size = 6
+				case "large":
+					size = 12
+				case "x-large":
+					size = 14
+				case "xx-large":
+					size = 17
+				}
+			}
+
 			// Add dot if style is "dot" (3x bigger with black outline)
 			if cell.ItemType != nil && cell.ItemType.Style == "dot" {
 				svg += fmt.Sprintf(`
-    <circle cx="%.1f" cy="%.1f" r="9" fill="%s" stroke="black" stroke-width="2"/>`, x, y, cell.ItemType.Color)
+    <circle cx="%.1f" cy="%.1f" r="%d" fill="%s" stroke="black" stroke-width="2"/>`, x, y, size, cell.ItemType.Color)
 			}
 
 			// Add dice result text if available

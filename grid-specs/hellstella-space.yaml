@@ -1,46 +1,101 @@
 default: "#D3D3D3"
 items:
-  - name: "Class M Star"
-    percentage: 15.0
+  - name: "MS Class F"
+    percentage: 2.0
     style: "dot"
-    color: "#FFD700"
-    dice: "2d12"
-  
-  - name: "Red Giant Star"
-    percentage: 1.0
-    style: "dot"
-    color: "#FF8080"
-    dice: "1d4"
+    color: "#FFEEBF"
+    dice: "2d8"
+    letter: "F"
 
-  - name: "White Dwarf Star"
-    percentage: 1.0
+  - name: "MS Class G"
+    percentage: 3.5
     style: "dot"
-    color: "#FFFFFF"
-    dice: "2d6"
+    color: "#f7be00"
+    dice: "2d8"
+    letter: "G"
 
-  - name: "Neutron Star"
-    percentage: 1.0
-    style: "dot"
-    color: "#FFA500"
-
-  - name: "Red Dwarf Star"
-    percentage: 1.0
-    style: "dot"
-    color: "#FF0000"
-    dice: "2d4"
-
-  - name: "Brown Dwarf Star"
-    percentage: 1.0
-    style: "dot"
-    color: "#8B4513"
-    dice: "2d4"
-    
-  - name: "Blue Supergiant Star"
-    percentage: 1.0
-    style: "dot"
-    color: "#5555FF"
-
-  - name: "Black Hole"
+  - name: "MS Class K"
     percentage: 5.0
     style: "dot"
+    color: "#FF7424"
+    dice: "2d8"
+    letter: "K"
+
+  - name: "MS Class M"
+    percentage: 10.0
+    style: "dot"
+    color: "#ff4112"
+    dice: "2d8"
+    letter: "M"
+
+  - name: "Red Giant"
+    percentage: 0.5
+    style: "dot"
+    color: "#d90000"
+    dice: "2d6"
+
+  - name: "Blue Giant"
+    percentage: 0.5
+    style: "dot"
+    color: "#00B7FF"
+    dice: "2d6"
+    size: "large"
+
+  - name: "Yellow Giant"
+    percentage: 0.5
+    style: "dot"
+    color: "#ffd500"
+    dice: "2d6"
+    size: "large"
+
+  - name: "Brown Dwarf"
+    percentage: 0.4
+    style: "dot"
+    color: "#611202"
+    dice: "1d4"
+    size: "small"
+
+  - name: "Neutron Star"
+    percentage: 0.87
+    style: "dot"
+    color: "#00FBFF"
+    size: "small"
+
+  - name: "Blue Supergiant"
+    percentage: 0.18
+    style: "dot"
+    color: "#00B7FF" 
+    dice: "1d6"
+    size: "x-large"
+
+  - name: "Red Supergiant"
+    percentage: 0.18
+    style: "dot"
+    color: "#d90000"
+    dice: "1d6"
+    size: "x-large"
+
+  - name: "Yellow Supergiant"
+    percentage: 0.18
+    style: "dot"
+    color: "#ffd500"
+    dice: "1d6"
+    size: "x-large"
+
+  - name: "Hypergiant"
+    percentage: 0.147
+    style: "dot"
+    color: "#550059"
+    size: "xx-large"
+
+  - name: "White Dwarf"
+    percentage: 0.65
+    style: "dot"
+    color: "#FFFFFF"
+    size: "small"
+
+  - name: "Black Hole"
+    percentage: 2
+    style: "dot"
     color: "#000000"
+    size: "large"

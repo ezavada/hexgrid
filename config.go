@@ -17,7 +17,9 @@ type ItemType struct {
 	Percentage float64 `yaml:"percentage"`
 	Style      string  `yaml:"style"` // "dot" or "fill"
 	Color      string  `yaml:"color"`
-	Dice       string  `yaml:"dice,omitempty"` // Optional dice notation like "2d6" or "3d8"
+	Dice       string  `yaml:"dice,omitempty"`   // Optional dice notation like "2d6" or "3d8"
+	Letter     string  `yaml:"letter,omitempty"` // Optional letter like "F", "G", "K", "M", "N", etc.
+	Size       string  `yaml:"size,omitempty"`   // Optional size like "small", "large", "x-large", "xx-large"
 }
 
 // Config represents the YAML configuration file structure
