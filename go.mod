@@ -2,7 +2,11 @@ module hexgrid
 
 go 1.21
 
-require fyne.io/fyne/v2 v2.4.1
+require (
+	fyne.io/fyne/v2 v2.4.1
+	github.com/jung-kurt/gofpdf v1.16.2
+	gopkg.in/yaml.v3 v3.0.1
+)
 
 require (
 	fyne.io/systray v1.10.1-0.20230722100817-88df1e0ffa9a // indirect
@@ -30,6 +34,5 @@ require (
 	golang.org/x/net v0.14.0 // indirect
 	golang.org/x/sys v0.11.0 // indirect
 	golang.org/x/text v0.12.0 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 	honnef.co/go/js/dom v0.0.0-20210725211120-f030747120f2 // indirect
 )

@@ -16,10 +16,11 @@ import (
 )
 
 type Config struct {
-	YAMLPath   string
-	OutputPath string
-	GridRows   int
-	GridCols   int
+	YAMLPath     string
+	OutputPath   string
+	GridRows     int
+	GridCols     int
+	OutputFormat string // "svg" or "pdf"
 }
 
 func main() {
@@ -28,8 +29,9 @@ func main() {
 	myWindow.Resize(fyne.NewSize(600, 400))
 
 	config := &Config{
-		GridRows: 10,
-		GridCols: 10,
+		GridRows:     25,
+		GridCols:     10,
+		OutputFormat: "svg", // Default to SVG
 	}
 
 	// Output path label (declared early so it can be used in YAML selection)
@@ -110,7 +112,7 @@ func main() {
 
 	// Grid size inputs
 	rowsInput := widget.NewEntry()
-	rowsInput.SetText("10")
+	rowsInput.SetText(fmt.Sprintf("%d", config.GridRows))
 	rowsInput.OnChanged = func(value string) {
 		if val, err := parseInt(value); err == nil {
 			config.GridRows = val
@@ -118,12 +120,23 @@ func main() {
 	}
 
 	colsInput := widget.NewEntry()
-	colsInput.SetText("10")
+	colsInput.SetText(fmt.Sprintf("%d", config.GridCols))
 	colsInput.OnChanged = func(value string) {
 		if val, err := parseInt(value); err == nil {
 			config.GridCols = val
 		}
 	}
+
+	// Output format selection
+	outputFormatLabel := widget.NewLabel("Output Format:")
+	svgRadio := widget.NewRadioGroup([]string{"SVG", "PDF"}, func(selected string) {
+		if selected == "SVG" {
+			config.OutputFormat = "svg"
+		} else if selected == "PDF" {
+			config.OutputFormat = "pdf"
+		}
+	})
+	svgRadio.SetSelected("SVG") // Default to SVG
 
 	// Output file selection
 	outputSelectBtn := widget.NewButton("Select Output File", func() {
@@ -181,10 +194,16 @@ func main() {
 		if err != nil {
 			dialog.ShowError(err, myWindow)
 		} else {
-			// Open the generated HTML file in the browser
-			htmlPath := config.OutputPath + ".html"
-			openInBrowser(htmlPath)
-			dialog.ShowInformation("Success", "Hex grid generated successfully and opened in browser!", myWindow)
+			if config.OutputFormat == "pdf" {
+				// For PDF, show success message
+				dialog.ShowInformation("Success", "PDF hex grid generated successfully!", myWindow)
+			} else {
+				// For SVG, open the generated HTML file in the browser
+				htmlPath := config.OutputPath + ".html"
+				openInBrowser(htmlPath)
+			}
+			// regenerate the output path
+			generateOutputPath(config, outputPathLabel)
 		}
 	})
 
@@ -205,6 +224,9 @@ func main() {
 				colsInput,
 			),
 		),
+		widget.NewSeparator(),
+		outputFormatLabel,
+		svgRadio,
 		widget.NewSeparator(),
 		container.NewHBox(widget.NewLabel("Output File:"), outputSelectBtn),
 		outputPathLabel,
@@ -303,18 +325,27 @@ func generateHexGrid(config *Config) error {
 	// Populate grid with items
 	grid.PopulateGrid()
 
-	// Generate SVG file
-	svgPath := config.OutputPath + ".svg"
-	err = GenerateSVG(grid, svgPath)
-	if err != nil {
-		return fmt.Errorf("failed to generate SVG: %w", err)
-	}
+	if config.OutputFormat == "pdf" {
+		// Generate PDF file
+		pdfPath := config.OutputPath + ".pdf"
+		err = GeneratePDF(grid, pdfPath)
+		if err != nil {
+			return fmt.Errorf("failed to generate PDF: %w", err)
+		}
+	} else {
+		// Generate SVG file
+		svgPath := config.OutputPath + ".svg"
+		err = GenerateSVG(grid, svgPath)
+		if err != nil {
+			return fmt.Errorf("failed to generate SVG: %w", err)
+		}
 
-	// Generate HTML file
-	htmlPath := config.OutputPath + ".html"
-	err = GenerateHTML(grid, svgPath, htmlPath)
-	if err != nil {
-		return fmt.Errorf("failed to generate HTML: %w", err)
+		// Generate HTML file
+		htmlPath := config.OutputPath + ".html"
+		err = GenerateHTML(grid, svgPath, htmlPath)
+		if err != nil {
+			return fmt.Errorf("failed to generate HTML: %w", err)
+		}
 	}
 
 	return nil

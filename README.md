@@ -7,8 +7,10 @@ A Golang application that generates hex grids from YAML configuration files with
 - GUI for selecting YAML configuration files and output locations
 - Configurable grid size (rows and columns)
 - Support for different item types with percentages, styles, and colors
+- Multiple output formats: SVG and PDF
 - SVG output with proper staggered hexagon grid layout (no overlapping)
-- HTML page with embedded SVG, scrolling, and item legend
+- HTML page with embedded SVG, scrolling, and item legend (SVG mode)
+- PDF output with embedded legend (PDF mode)
 - Two item styles: "fill" (colored hexagon) and "dot" (colored dot in center with black outline)
 - Configurable default background color for empty cells and dot-style items
 
@@ -24,9 +26,10 @@ A Golang application that generates hex grids from YAML configuration files with
 1. **Start the application**: Run `go run .` from the project directory
 2. **Select YAML file**: Choose from the dropdown menu to select your configuration file from the `grid-specs/` folder
 3. **Set grid size**: Enter the number of rows and columns for your hex grid
-4. **Auto-generated output**: The output path is automatically generated based on the YAML filename and timestamp
-5. **Generate**: Click "Generate Hex Grid" to create the SVG and HTML files in the `generated-grids/` folder
-6. **Auto-open**: The generated HTML file automatically opens in your default browser
+4. **Choose output format**: Select either "SVG" or "PDF" format
+5. **Auto-generated output**: The output path is automatically generated based on the YAML filename and timestamp
+6. **Generate**: Click "Generate Hex Grid" to create the output files in the `generated-grids/` folder
+7. **View results**: SVG mode opens HTML in browser, PDF mode shows success message
 
 ### File Structure
 
@@ -38,9 +41,11 @@ The application uses the following directory structure:
 
 The application automatically scans the `grid-specs/` folder for YAML files and displays them in a dropdown menu. Use the "Refresh" button to reload the list if you add new files while the application is running.
 
-### Browser Integration
+### Output Modes
 
-When grid generation completes successfully, the HTML file automatically opens in your default browser, allowing you to immediately view the generated hex grid with the item legend and scrolling functionality.
+**SVG Mode**: Generates SVG and HTML files. The HTML file automatically opens in your default browser, allowing you to immediately view the generated hex grid with the item legend and scrolling functionality.
+
+**PDF Mode**: Generates a PDF file with the hex grid and embedded legend. Shows a success message when complete.
 
 ### Automatic Naming
 
@@ -72,6 +77,7 @@ items:
     percentage: 10.0
     style: "dot"
     color: "#FFD700"
+    dice: "2d6"
 ```
 
 ### Configuration Options
@@ -81,6 +87,7 @@ items:
 - **percentage**: Percentage of grid cells to fill with this item (0-100)
 - **style**: Either "fill" (colored hexagon) or "dot" (colored dot in center)
 - **color**: Hex color code (e.g., "#FF0000" for red)
+- **dice**: Optional dice notation (e.g., "2d6", "3d8") - dice are rolled and displayed on hex cells
 
 ### Rules
 
@@ -88,13 +95,18 @@ items:
 - Total percentage should not exceed 100%
 - Valid styles are "fill" and "dot"
 - Use valid hex color codes
+- Dice notation must be in format "XdY" (e.g., "2d6", "3d8")
 
 ## Output Files
 
-The application generates two files:
+The application generates different files based on the selected output format:
 
+**SVG Mode:**
 1. **SVG file** (`.svg`): Vector graphics file containing the hex grid
 2. **HTML file** (`.html`): Web page with embedded SVG, scrolling, and item legend
+
+**PDF Mode:**
+1. **PDF file** (`.pdf`): PDF document with hex grid and embedded legend
 
 ## Hex Grid Layout
 
@@ -113,6 +125,12 @@ A sample configuration file `sample_config.yaml` is included with the following 
 - Village (10% - yellow dot)
 - Road (5% - gray dot)
 - Empty (20% - beige fill)
+
+A dice test configuration `dice-test.yaml` is also included with:
+- Treasure (15% - golden dot with 2d6)
+- Monster (20% - red fill with 3d8)
+- Trap (10% - orange dot with 1d4)
+- Empty Room (55% - beige fill)
 
 ## Building
 

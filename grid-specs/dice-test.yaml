@@ -1,0 +1,23 @@
+default: "#F5F5DC"
+items:
+  - name: "Treasure"
+    percentage: 15.0
+    style: "dot"
+    color: "#FFD700"
+    dice: "2d6"
+  
+  - name: "Monster"
+    percentage: 20.0
+    style: "fill"
+    color: "#8B0000"
+  
+  - name: "Trap"
+    percentage: 10.0
+    style: "dot"
+    color: "#FF4500"
+    dice: "1d4"
+  
+  - name: "Empty Room"
+    percentage: 55.0
+    style: "fill"
+    color: "#F5F5DC"

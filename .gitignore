@@ -23,3 +23,15 @@ go.work.sum
 
 # env file
 .env
+
+generated-grids/
+
+hexgrid
+
+HexGrid.app/Contents/Resources/grid-specs/dice-test.yaml
+
+HexGrid.app/Contents/Resources/grid-specs/hellstella-space.yaml
+
+HexGrid.app/README.txt
+
+.DS_Store

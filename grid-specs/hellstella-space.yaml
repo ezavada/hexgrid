@@ -4,16 +4,19 @@ items:
     percentage: 15.0
     style: "dot"
     color: "#FFD700"
+    dice: "2d12"
   
   - name: "Red Giant Star"
     percentage: 1.0
     style: "dot"
     color: "#FF8080"
+    dice: "1d4"
 
   - name: "White Dwarf Star"
     percentage: 1.0
     style: "dot"
     color: "#FFFFFF"
+    dice: "2d6"
 
   - name: "Neutron Star"
     percentage: 1.0
@@ -24,12 +27,14 @@ items:
     percentage: 1.0
     style: "dot"
     color: "#FF0000"
+    dice: "2d4"
 
   - name: "Brown Dwarf Star"
     percentage: 1.0
     style: "dot"
     color: "#8B4513"
-
+    dice: "2d4"
+    
   - name: "Blue Supergiant Star"
     percentage: 1.0
     style: "dot"

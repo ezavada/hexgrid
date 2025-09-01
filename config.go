@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"math/rand"
+	"regexp"
+	"strconv"
+	"strings"
 
 	"gopkg.in/yaml.v3"
 )
@@ -14,6 +17,7 @@ type ItemType struct {
 	Percentage float64 `yaml:"percentage"`
 	Style      string  `yaml:"style"` // "dot" or "fill"
 	Color      string  `yaml:"color"`
+	Dice       string  `yaml:"dice,omitempty"` // Optional dice notation like "2d6" or "3d8"
 }
 
 // Config represents the YAML configuration file structure
@@ -24,10 +28,11 @@ type YAMLConfig struct {
 
 // HexCell represents a single hexagon cell in the grid
 type HexCell struct {
-	Row      int
-	Col      int
-	ItemType *ItemType
-	X, Y     float64 // Center coordinates
+	Row        int
+	Col        int
+	ItemType   *ItemType
+	X, Y       float64     // Center coordinates
+	DiceResult *DiceResult // Dice roll result if item has dice
 }
 
 // HexGrid represents the complete hex grid
@@ -136,7 +141,74 @@ func (grid *HexGrid) PopulateGrid() {
 	for itemType, count := range itemCounts {
 		for i := 0; i < count && cellIndex < len(allCells); i++ {
 			allCells[cellIndex].ItemType = itemType
+
+			// Roll dice if the item has dice notation
+			if itemType.Dice != "" {
+				diceResult, err := rollDice(itemType.Dice)
+				if err != nil {
+					// Log error but continue - don't break the grid generation
+					fmt.Printf("Warning: failed to roll dice for %s (%s): %v\n", itemType.Name, itemType.Dice, err)
+				} else {
+					allCells[cellIndex].DiceResult = diceResult
+				}
+			}
+
 			cellIndex++
 		}
 	}
+}
+
+// DiceResult represents the result of rolling dice
+type DiceResult struct {
+	Total int
+	Rolls []int
+}
+
+// parseDiceNotation parses dice notation like "2d6" or "3d8"
+func parseDiceNotation(diceStr string) (int, int, error) {
+	// Remove whitespace and convert to lowercase
+	diceStr = strings.ToLower(strings.TrimSpace(diceStr))
+
+	// Match pattern like "2d6" or "3d8"
+	re := regexp.MustCompile(`^(\d+)d(\d+)$`)
+	matches := re.FindStringSubmatch(diceStr)
+
+	if len(matches) != 3 {
+		return 0, 0, fmt.Errorf("invalid dice notation: %s (expected format like '2d6')", diceStr)
+	}
+
+	numDice, err := strconv.Atoi(matches[1])
+	if err != nil {
+		return 0, 0, fmt.Errorf("invalid number of dice: %s", matches[1])
+	}
+
+	diceSides, err := strconv.Atoi(matches[2])
+	if err != nil {
+		return 0, 0, fmt.Errorf("invalid dice sides: %s", matches[2])
+	}
+
+	if numDice <= 0 || diceSides <= 0 {
+		return 0, 0, fmt.Errorf("dice count and sides must be positive")
+	}
+
+	return numDice, diceSides, nil
+}
+
+// rollDice rolls the specified dice and returns the result
+func rollDice(diceStr string) (*DiceResult, error) {
+	numDice, diceSides, err := parseDiceNotation(diceStr)
+	if err != nil {
+		return nil, err
+	}
+
+	result := &DiceResult{
+		Rolls: make([]int, numDice),
+	}
+
+	for i := 0; i < numDice; i++ {
+		result.Rolls[i] = rand.Intn(diceSides) + 1
+		result.Total += result.Rolls[i]
+	}
+
+	return result, nil
 }

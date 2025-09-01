@@ -90,6 +90,19 @@ func GenerateSVG(grid *HexGrid, outputPath string) error {
 				svg += fmt.Sprintf(`
     <circle cx="%.1f" cy="%.1f" r="9" fill="%s" stroke="black" stroke-width="2"/>`, x, y, cell.ItemType.Color)
 			}
+
+			// Add dice result text if available
+			if cell.DiceResult != nil {
+				// Position text to the right of the hexagon
+				textX := x - HexSize + 5
+				textY := y + 4
+
+				// Format dice result
+				diceText := fmt.Sprintf("%d", cell.DiceResult.Total)
+
+				svg += fmt.Sprintf(`
+    <text x="%.1f" y="%.1f" font-family="Arial, sans-serif, condensed" font-size="10" fill="black" text-anchor="start">%s</text>`, textX, textY, diceText)
+			}
 		}
 	}
 
